@@ -20,7 +20,8 @@ colnames(Y18new)[5]<-"tag"
 colnames(Y18new)[12]<-"odbh"
 colnames(Y18new)[14]<-"ª¬ºA18"
 Y18new$odbh<-as.numeric(as.character(Y18new$odbh))
-Y18new %<>% mutate(.,ba=pi*odbh^2)
-y18newdplyr<-Y18new %>% group_by(tag) %>% mutate(.,sumba=sum(ba)) %>% filter(.,B==0) %>% mutate(.,dbh=sqrt(sumba/pi))
-y18plot<-select(y18newdplyr,x1,y1,x2,y2,tag,sp,dbh) %>% mutate(.,x3="",y3="")
-write.csv(y18plot,"line38forplot.csv",row.names = FALSE)
+Y18new %<>% mutate(.,ba=pi*(odbh/2)^2)
+Y18newdplyr<-Y18new %>% group_by(tag) %>% mutate(.,sumba=sum(ba)) %>% filter(.,B==0) %>% mutate(.,dbh=(sqrt(sumba/pi))*2)
+Y18plot<-select(Y18newdplyr,x1,y1,x2,y2,tag,sp,dbh) %>% mutate(.,x3="",y3="")
+write.csv(Y18plot,"line38forplot.csv",row.names = FALSE)
+
