@@ -1,14 +1,14 @@
 library(sqldf)
 library(dplyr)
 library(magrittr)
-library(gdata)
+library(stringr)
 setwd("F:/google drive/森林動態研究室相關資料/南仁山2018-2019年計畫/欖仁溪/資料/欖仁溪電子輸入/輸入1/Line26")
 filenames <- list.files(pattern = ".csv")
 All<-lapply(filenames,function(i){
   read.csv(i,stringsAsFactors = FALSE)
 })
 df<-do.call(rbind.data.frame, All)
-df<-trim(df)
+dt %<>% mutate_if(is.character,str_trim)
 write.csv(df,"cline26.csv",row.names = FALSE)
 
 dt<-read.csv("./cline26.csv")
